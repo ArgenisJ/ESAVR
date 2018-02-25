@@ -22,17 +22,17 @@
   <FILE>DA1.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <SLOOP><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>30</LINE></SLOOP>
-  <IncHigh><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>44</LINE></IncHigh>
-  <DONE><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>48</LINE></DONE>
-  <GetNum><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>54</LINE></GetNum>
-  <DIV5><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>58</LINE></DIV5>
-  <Yes5><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>67</LINE></Yes5>
-  <Not5><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>73</LINE></Not5>
-  <IncR16><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>83</LINE></IncR16>
-  <Back1><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>78</LINE></Back1>
-  <IncR18><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>86</LINE></IncR18>
-  <IncHigh2><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>89</LINE></IncHigh2>
-  <Chk300><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>93</LINE></Chk300>
+  <SLOOP><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>39</LINE></SLOOP>
+  <IncHigh><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>54</LINE></IncHigh>
+  <DONE><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>58</LINE></DONE>
+  <GetNum><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>68</LINE></GetNum>
+  <DIV5><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>73</LINE></DIV5>
+  <Yes5><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>84</LINE></Yes5>
+  <Not5><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>92</LINE></Not5>
+  <IncR16><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>104</LINE></IncR16>
+  <Back1><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>99</LINE></Back1>
+  <IncR18><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>107</LINE></IncR18>
+  <IncHigh2><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>110</LINE></IncHigh2>
+  <Chk300><FILE>C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm</FILE><LINE>114</LINE></Chk300>
  </LABELS>
 </ASSEMBLER_INFO>

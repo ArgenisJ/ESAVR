@@ -1,10 +1,10 @@
 
-AVRASM ver. 2.2.7  C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm Sun Feb 25 07:43:33 2018
+AVRASM ver. 2.2.7  C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.asm Sun Feb 25 08:58:37 2018
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m328pdef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m328pdef.inc'
                                  
-                                 ;
+                                 ; Author: ArgenisJ
                                  
                                  ;***** Created: 2011-02-09 12:03 ******* Source: ATmega328P.xml **********
                                  ;*************************************************************************
@@ -985,12 +985,18 @@ AVRASM ver. 2.2.7  C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.a
                                  
                                  ; ***** END OF FILE ******************************************************
                                  
-                                 ; DA1.asm
-                                 ;
-                                 ; Created: 2/23/2018 7:09:53 PM
-                                 ; Author : Argen
-                                 ;
-                                 
+                                 ; DA1
+                                 ; 1. Store 300 numbers starting from the STARTADDS=0x0222 location. Populate the value 
+                                 ;	 of the memory location by adding high(STARTADDS) and low(STARTADDS) . Use the X/
+                                 ;	 Y/Z registers as pointers to fill up 300 numbers.
+                                 ; 2. Use X/Y/Z register addressing to parse through the 300 numbers, if the number is
+                                 ;	 divisible by 5 store the number starting from memory location 0x0400, else store at
+                                 ;	 location starting at 0x0600.
+                                 ; 3. Use X/Y/Z register addressing to simultaneously add numbers from memory location
+                                 ;	 0x0400 and 0x0600 and store the sums at R16:R17 and R18:R19 respectively. Do not
+                                 ;	 worry about the overflow.
+                                 ; 4. Verify your algorithm and answers using C programming.
+                                 ; 5. Determine the execution time @ 16MHz/#cycles of your algorithm using the simulation.
                                  
                                  ; Replace with your application code
                                  .ORG 0	
@@ -998,7 +1004,8 @@ AVRASM ver. 2.2.7  C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.a
                                  	.EQU DIVISIBLE = 0x0400
                                  	.EQU NOTDIV = 0x0600
                                  
-000000 e2a2                      	LDI XL, LOW(STARTADDS)
+                                 ; pointers x, y and z
+000000 e2a2                      	LDI XL, LOW(STARTADDS)	
 000001 e0b2                      	LDI XH, HIGH(STARTADDS)
 000002 e0c0                      	LDI YL, LOW(DIVISIBLE)
 000003 e0d4                      	LDI YH, HIGH(DIVISIBLE)
@@ -1013,6 +1020,8 @@ AVRASM ver. 2.2.7  C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.a
 00000a 0f76                      	ADD R23, R22			; StrN = i
 00000b 2788                      	CLR R24					; low bit count = 0
 00000c 2799                      	CLR R25					; high bit count = 0
+                                 
+                                 ; store numbers
                                  SLOOP:
 00000d 0f76                      	ADD R23, R22			; StrN = StrN + i
 00000e 937d                      	ST X+, R23				; StrN is stored and address increases
@@ -1027,60 +1036,73 @@ AVRASM ver. 2.2.7  C:\Users\Argen\OneDrive\UNLV\CPE 301\Homework1\DA1\DA1\main.a
 000015 f7b9                      	BRNE SLOOP				; go to store loop
 000016 940c 001c                 	JMP DONE				; storing done
                                  
+                                 ; increase high bit count
                                  IncHigh:
 000018 2788                      	CLR R24					; reset low bit count	 
 000019 9593                      	INC R25					; increase high bit count
 00001a 940c 000d                 	JMP SLOOP				; go to store loop
                                  DONE:	
-00001c 2766                      	CLR R22
-00001d 2777                      	CLR R23	
-00001e 2788                      	CLR R24
-00001f 2799                      	CLR R25
-                                 	
-                                 GetNum:
-000020 916e                      	LD R22, -X
-000021 2f76                      	MOV R23, R22
                                  
-                                 DIV5:
-000022 3075                      	CPI R23, 0x05
-000023 f039                      	BREQ Yes5
-000024 3075                      	CPI R23, 0x05
-000025 f058                      	BRLO Not5
-000026 5075                      	SUBI R23, 0x05
-000027 3075                      	CPI R23, 0x05
-000028 f7c8                      	BRSH DIV5
-000029 940c 0031                 	JMP Not5
-                                 Yes5:
-00002b 9369                      	ST Y+, R22
-00002c 0f16                      	ADD R17, R22
-00002d 1716                      	CP R17, R22
-00002e f058                      	BRLO IncR16
-00002f 940c 0035                 	JMP Back1
+                                 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                 
+00001c 2766                      	CLR R22					; Num = 0 
+00001d 2777                      	CLR R23					; TestNum = 0 
+00001e 2788                      	CLR R24					; counter = 0 low bit
+00001f 2799                      	CLR R25					; counter = 0 high bit
+                                 
+                                 ; Load Num and TestNum	
+                                 GetNum:	
+000020 916e                      	LD R22, -X				; load Num at (0x222 + 0x12C) and decrease address
+000021 2f76                      	MOV R23, R22			; move Num to TestNum register	
+                                 
+                                 ; Check TestNum
+                                 DIV5:						
+000022 3075                      	CPI R23, 0x05			; If TestNum = 5
+000023 f039                      	BREQ Yes5				; go to Yes5 (it is divisible)
+000024 3075                      	CPI R23, 0x05			; if TestNum < 5
+000025 f058                      	BRLO Not5				; go to Not5 (not divisible)
+000026 5075                      	SUBI R23, 0x05			; TestNum = TestNum - 5
+000027 3075                      	CPI R23, 0x05			; if TestNum >= 5
+000028 f7c8                      	BRSH DIV5				; go to DIV5
+000029 940c 0031                 	JMP Not5				; else go to Not5 (not divisible)
+                                 
+                                 ; load IF divisible by 5
+                                 Yes5:				
+00002b 9369                      	ST Y+, R22				; load Num to 0x0400 and increase address
+00002c 0f16                      	ADD R17, R22			; DivSum = DivSum + Num
+00002d 1716                      	CP R17, R22				; if Divsum < Num
+00002e f058                      	BRLO IncR16				; increase high bit of DivSum
+00002f 940c 0035                 	JMP Back1				; else go to Back1 to prepare for next Num
+                                 
+                                 ; load IF NOT divisible by 5
                                  Not5:
-000031 9361                      	ST Z+, R22
-000032 0f36                      	ADD R19, R22
-000033 1736                      	CP R19, R22
-000034 f040                      	BRLO IncR18
+000031 9361                      	ST Z+, R22				; load Num to 0x0600 and increase address
+000032 0f36                      	ADD R19, R22			; NotSum = NotSum + Num
+000033 1736                      	CP R19, R22				; if NotSum < Num
+000034 f040                      	BRLO IncR18				; increase high bit of NotSum
+                                 
+                                 ; prepare for next Num
                                  Back1:	
-000035 9583                      	INC R24
-000036 3080                      	CPI R24, 0x00
-000037 f041                      	BREQ IncHigh2
-000038 940c 0044                 	JMP Chk300
-                                 IncR16:
-00003a 9503                      	INC R16
-00003b 940c 0035                 	JMP Back1
+000035 9583                      	INC R24					; increase counter
+000036 3080                      	CPI R24, 0x00			; if counter = 0x00
+000037 f041                      	BREQ IncHigh2			; go to Increase the high bit of counter
+000038 940c 0044                 	JMP Chk300				; else check for 300 numbers
+                                 IncR16:				
+00003a 9503                      	INC R16					; increase high bit of DivSum
+00003b 940c 0035                 	JMP Back1				; go to Back1 to prepare for next Num
                                  IncR18:
-00003d 9523                      	INC R18
-00003e 940c 0035                 	JMP Back1
+00003d 9523                      	INC R18					; increase high bit of NotSum
+00003e 940c 0035                 	JMP Back1				; go to Back1 to prepare for next Num
                                  IncHigh2:
-000040 2788                      	CLR R24
-000041 9593                      	INC R25
-000042 940c 0020                 	JMP GetNum
+000040 2788                      	CLR R24					; set counter low bit to 0
+000041 9593                      	INC R25					; increase counter high bit
+000042 940c 0020                 	JMP GetNum				; go to next Num
                                  Chk300:
-000044 1748                      	CP R20, R24				; if (low bit count != 0x2D)
-000045 f6d1                      	BRNE GetNum				; go to store loop
+000044 1748                      	CP R20, R24				; if (low bit counter != 0x2D)
+000045 f6d1                      	BRNE GetNum				; go to get next Num
 000046 1759                      	CP R21, R25				; if (high bit count != 0x01)
-000047 f6c1                      	BRNE GetNum			; go to store loop
+000047 f6c1                      	BRNE GetNum				; go to get next Num
+                                 							; else DONE!
 
 
 RESOURCE USE INFORMATION
